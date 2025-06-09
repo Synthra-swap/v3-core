@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.4",
+  "version": "1.0.6",
   "keywords": [
     "synthra",
     "uniswap",
@@ -51,6 +51,7 @@
     "test": "hardhat test"
   },
   "dependencies": {
-    "@nomicfoundation/hardhat-verify": "^2.0.13"
+    "@nomicfoundation/hardhat-verify": "^2.0.13",
+    "hardhat-contract-sizer": "^2.10.0"
   }
 }

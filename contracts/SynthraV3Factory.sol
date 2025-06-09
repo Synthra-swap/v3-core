@@ -15,7 +15,7 @@ contract SynthraV3Factory is ISynthraV3Factory, SynthraV3PoolDeployer, NoDelegat
     address public override owner;
 
     /// @notice The address that receives protocol fees from all pools
-    address public protocolFeeRecipient;
+    address public feeRecipient;
 
     /// @inheritdoc ISynthraV3Factory
     mapping(uint24 => int24) public override feeAmountTickSpacing;
@@ -24,7 +24,7 @@ contract SynthraV3Factory is ISynthraV3Factory, SynthraV3PoolDeployer, NoDelegat
 
     constructor() {
         owner = msg.sender;
-        protocolFeeRecipient = msg.sender; // Default to deployer, can be changed later
+        feeRecipient = msg.sender; // Default to deployer, can be changed later
         emit OwnerChanged(address(0), msg.sender);
 
         feeAmountTickSpacing[500] = 10;
@@ -47,7 +47,7 @@ contract SynthraV3Factory is ISynthraV3Factory, SynthraV3PoolDeployer, NoDelegat
         int24 tickSpacing = feeAmountTickSpacing[fee];
         require(tickSpacing != 0);
         require(getPool[token0][token1][fee] == address(0));
-        pool = deploy(address(this), token0, token1, fee, tickSpacing, protocolFeeRecipient);
+        pool = deploy(address(this), token0, token1, fee, tickSpacing, feeRecipient);
         getPool[token0][token1][fee] = pool;
         // populate mapping in the reverse direction, deliberate choice to avoid the cost of comparing addresses
         getPool[token1][token0][fee] = pool;
@@ -64,10 +64,10 @@ contract SynthraV3Factory is ISynthraV3Factory, SynthraV3PoolDeployer, NoDelegat
     /// @notice Updates the address that receives protocol fees
     /// @dev Must be called by the current owner
     /// @param _protocolFeeRecipient The new protocol fee recipient address
-    function setProtocolFeeRecipient(address _protocolFeeRecipient) external {
+    function setFeeRecipient(address _protocolFeeRecipient) external {
         require(msg.sender == owner);
-        require(_protocolFeeRecipient != address(0));
-        protocolFeeRecipient = _protocolFeeRecipient;
+        // require(_protocolFeeRecipient != address(0));
+        feeRecipient = _protocolFeeRecipient;
     }
 
     /// @inheritdoc ISynthraV3Factory

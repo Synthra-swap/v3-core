@@ -2,6 +2,7 @@ import 'hardhat-typechain'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
 import "@nomicfoundation/hardhat-verify"
+import "hardhat-contract-sizer";
 
 export default {
   networks: {
@@ -63,12 +64,17 @@ export default {
       }
     ]
   },
+   contractSizer: {
+    alphaSort: true,
+    runOnCompile: true, // oppure false se vuoi lanciare manualmente
+    disambiguatePaths: true,
+  },
   solidity: {
     version: '0.7.6',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 800,
+        runs: 1,
       },
       metadata: {
         // do not include the metadata hash, since this is machine dependent
