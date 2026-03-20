@@ -1,7 +1,6 @@
 # Synthra V3 Core
 
-This repository contains the core smart contracts for the Synthra V3 Protocol, a fork of Uniswap V3 with enhanced protocol fee mechanisms.
-
+This repository contains the core smart contracts for the Synthra V3 Protocol
 ## Key Features
 
 ### 🚀 Enhanced Protocol Fee System
@@ -25,7 +24,7 @@ The Synthra V3 protocol consists of:
 
 ## Protocol Fee Mechanism
 
-Unlike standard Uniswap V3 where protocol fees accumulate and require manual collection, Synthra V3 implements:
+Synthra V3 implements:
 
 1. **Automatic Initialization**: All pools start with `feeProtocol = 51` (3 + (3 << 4)) = 1/3 fee for both tokens
 2. **Real-time Transfers**: During swaps and flash loans, protocol fees are immediately sent to `protocolFeeRecipient`
@@ -146,4 +145,4 @@ pool.swap(user, true, amountIn, sqrtPriceLimit, swapData);
 - **Protocol Fee Recipient**: Must be a valid address that can receive tokens
 - **Automatic Transfers**: Protocol fees are transferred using `TransferHelper.safeTransfer`
 - **Gas Costs**: Additional gas cost per swap for the automatic fee transfer
-- **Fee Calculation**: Uses the same denominator system as Uniswap V3 (1/x where x=3 means 1/3 of fees)
+- **Fee Calculation**: Uses the denominator system (1/x where x=3 means 1/3 of fees)

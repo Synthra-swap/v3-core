@@ -2,18 +2,25 @@ import 'hardhat-typechain'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
 import "@nomicfoundation/hardhat-verify"
-import "hardhat-contract-sizer";
+import "hardhat-contract-sizer"
+import "solidity-coverage"
+import "hardhat-gas-reporter"
 
 export default {
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false,
     },
+    coverage: {
+      url: 'http://localhost:8555',
+      gas: 0xfffffffffff,
+      gasPrice: 0x01,
+    },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     uomi: {
-      url: "https://finney.uomi.ai",
+      url: "https://turing.uomi.ai",
     },
     ropsten: {
       url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
@@ -69,6 +76,16 @@ export default {
     runOnCompile: true, // oppure false se vuoi lanciare manualmente
     disambiguatePaths: true,
   },
+  gasReporter: {
+    enabled: true,
+    currency: 'USD',
+    gasPrice: 20,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    outputFile: 'gas-report.txt',
+    noColors: true
+  },
+  
+  
   solidity: {
     version: '0.7.6',
     settings: {
